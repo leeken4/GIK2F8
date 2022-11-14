@@ -36,18 +36,19 @@ function searchBooks(searchTerm){
     const filteredList = [];
     for(let i = 0; i < bookList.length; i++){
         const title = bookList[i].title.toLowerCase();
-        if (title.indexOf(searchTerm.toLowerCase()) >= 0){
-            filteredList.push(bookList[i])
+        const author = bookList[i].author.toLowerCase();
+        if (title.indexOf(searchTerm.toLowerCase()) >= 0 || author.indexOf(searchTerm.toLowerCase()) >= 0) {
+            filteredList.push(bookList[i]);
         }
     }
-    console.log(filteredList);
+    //console.log(filteredList);
     renderBookList(filteredList);
 }
 
 function renderBookList(bookList){
     /*Element i HTML-listan visas/döljs beroende på listans innehåll*/
 
-    BookList(bookList);
+    //BookList(bookList);
 
 
   const existingElement = document.querySelector('.book-list');
