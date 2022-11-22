@@ -12,38 +12,24 @@ const bookList = [
     title: 'Hamlet'
 }
 ];
-// const searchField = document.children[0].children[1].children[1].children[1];
 const searchField = document.getElementById('searchField')
 
-searchField.addEventListener("keyup", handleKeyPress);
+//searchField.addEventListener("keyup", (e) => searchBooks(e.target.value));
+searchField.addEventListener("keyup", (e) => 
+  renderBookList(
+    bookList.filter(( {title, author} ) => {
+      const searchTerm = e.target.value. toLowerCase();
+      return title.toLowerCase().indexOf(searchTerm()) >= 0 || author.toLowerCase().indexOf(searchTerm()) >= 0;
+    })
+  )
+);
 
-function handleKeyPress(e){
-    /* Ta emot/läsa av värdert i inputfältet
-    Skicka värdet till searchBooks
-    searchBooks returnerar en filtrerad lista
-    Filtrerade listan skickas till en renderBookList
-    */
-   searchBooks(e.target.value)
-}
-
-function searchBooks(searchTerm){
-    /* Loopa igeonm bookList
-    För varje varv i loopen, ta det aktuella elementet (boken)
-    Jämför titel med söktermen
-    Om söktermen finns någonsatns i titel, lägg till elementet i ny lista (filteredList)
-    Returnerar filteredList eller anropar renderBookList?
-    */
-    const filteredList = [];
-    for(let i = 0; i < bookList.length; i++){
-        const title = bookList[i].title.toLowerCase();
-        const author = bookList[i].author.toLowerCase();
-        if (title.indexOf(searchTerm.toLowerCase()) >= 0 || author.indexOf(searchTerm.toLowerCase()) >= 0) {
-            filteredList.push(bookList[i]);
-        }
-    }
-    //console.log(filteredList);
-    renderBookList(filteredList);
-}
+/* function searchBooks(searchTerm){
+    renderBookList(bookList.filter(
+      ( {title, author} ) => 
+      title.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0 || 
+      author.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0));
+} */
 
 function renderBookList(bookList){
     /*Element i HTML-listan visas/döljs beroende på listans innehåll*/
