@@ -1,17 +1,11 @@
 'Use strict';
 /* Vad ska vi göra här? */
-const bookList = [
-{
-    id: 1,
-    author: 'Charles Dickens',
-    title: 'Oliver Twist'
-},
-{
-    id: 2,
-    author: 'William Shakespear',
-    title: 'Hamlet'
-}
-];
+let bookList = [];
+window.addEventListener("load", () => {
+  getAll().then((apiBooks) => (bookList = apiBooks))
+})
+
+
 const searchField = document.getElementById('searchField')
 
 //searchField.addEventListener("keyup", (e) => searchBooks(e.target.value));
@@ -24,7 +18,8 @@ searchField.addEventListener("keyup", (e) =>
   )
 );
 
-/* function searchBooks(searchTerm){
+/* async function searchBooks(searchTerm){
+    const bookList = await getAll();
     renderBookList(bookList.filter(
       ( {title, author} ) => 
       title.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0 || 
@@ -32,30 +27,12 @@ searchField.addEventListener("keyup", (e) =>
 } */
 
 function renderBookList(bookList){
-    /*Element i HTML-listan visas/döljs beroende på listans innehåll*/
-
-    //BookList(bookList);
-
-
   const existingElement = document.querySelector('.book-list');
   console.log(existingElement)
 
   const root = document.getElementById('root');
-  if (existingElement){
-    root.removeChild(existingElement);
-  }
-  if(bookList.length > 0){
-    root.insertAdjacentHTML('beforeend', BookList(bookList));
-  }
- 
-  
+  existingElement && root.removeChild(existingElement);
+
+  bookList.length > 0 && searchField.value && root.insertAdjacentHTML('beforeend', BookList(bookList));
 }
 
-/*    <li
-        class="book-listitem mb-2 mx-2 last:mb-0 p-3 text-indigo-900 last:border-b-0 border-b border-indigo-700 cursor-pointer">
-      1
-    </li>
-    <li
-        class="book-listitem mb-2 mx-2 last:mb-0 p-3 text-indigo-900 last:border-b-0 border-b border-indigo-700 cursor-pointer">
-      2
-    </li> */
